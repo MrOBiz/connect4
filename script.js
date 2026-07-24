@@ -9,9 +9,52 @@ function Gameboard(){
             board[i].push(Cell());
         }
     }
+
+
+
+    const getBoard = () => board;
+
+    const dropToken = (column, player) => {
+
+        const availableCells = board
+            .filter((row) => row[column].getvalue() === 0)
+            .map((row) => row[column]);
+
+        if (!availableCells.length) return;
+
+        const lowestRow = availableCells.length - 1;
+        board[lowestRow][column].addToken(player); 
+    }
+
+    const printBoard = () => {
+        const boardWithCellValues = board.map((row) =>
+            row.map((cell) => cell.getvalue())
+        );
+        console.log(boardWithCellValues);
+    }
+
+    return {getBoard, dropToken, printBoard};
 }
 
 
-const getBoard = () => board;
+function Cell(){
+    let value = 0;
 
-const dropToken = (column, player) => {}
+    const addToken = (player) => {
+        value = player;
+    }
+
+    const getvalue = () => value;
+
+    return{
+        addToken,
+        getValue,
+    };
+}
+
+function GameController(
+    playerOneName = "Player One",
+    playerTwoName = "Player Two"
+){
+    
+}
