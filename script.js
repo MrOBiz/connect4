@@ -28,7 +28,7 @@ function Gameboard(){
 
     const printBoard = () => {
         const boardWithCellValues = board.map((row) =>
-            row.map((cell) => cell.getvalue())
+            row.map((cell) => cell.getValue())
         );
         console.log(boardWithCellValues);
     }
@@ -44,7 +44,7 @@ function Cell(){
         value = player;
     }
 
-    const getvalue = () => value;
+    const getValue = () => value;
 
     return{
         addToken,
@@ -56,5 +56,52 @@ function GameController(
     playerOneName = "Player One",
     playerTwoName = "Player Two"
 ){
+    const board = Gameboard();
+
+    const players = [
+        {
+            name: playerOneName,
+            token: 1,
+        },
+        {
+            name: playerTwoName,
+            token: 2,
+        },
+    ];
+
+    let activePlayer = players[0];
+
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    };
+
+    const getActivePlayer = () => activePlayer;
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(getActivePlayer().name + "'s turn.");
+    }
+
+    const playRound = (column) => {
+        console.log(
+            "Dropping " + getActivePlayer().name + "'s token into column " + column
+        );
+        board.dropToken(column, getActivePlayer().token);
     
+
+        switchPlayerTurn();
+        printNewRound();
+    };
+
+  // Initial play game message
+    printNewRound();
+
+  // For the console version, we will only use playRound, but we will need
+  // getActivePlayer for the UI version, so I'm revealing it now
+    return {
+        playRound,
+        getActivePlayer,
+    };
 }
+
+const game = GameController();
