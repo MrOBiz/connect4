@@ -15,3 +15,19 @@ fromTen.increase();
 console.log(fromTen.getCount());
 
 /* console.log(count); doesn't work, it's private because of closure */
+
+//ROW OF 5 COUNTERS
+function CounterRow(){
+    const row = new Array();
+
+    const add = (start) => {row.push(Counter(start));};
+    const list = () => row.map((s) => s.getCount()); 
+    return { add, list};
+}
+
+
+let rowOne = new CounterRow();
+rowOne.add(13);
+rowOne.add(3);
+rowOne.add(7);
+console.log(rowOne.list());
