@@ -31,9 +31,27 @@ function Game() {
         return arr;
     }
 
+    const playRound = (index) => {
+        if(index < 0 || index > cells - 1){
+            return;
+        }
+
+        if(board[index] === "-"){
+            board[index].setValue(activeP.token);
+            switchTurn();
+
+            getActiveP();
+            getCellContent();
+        }else{
+            console.log("Taken.");
+            return;
+        }
+    }
+
     createBoard();
     getActiveP();
-    return {getActiveP, switchTurn, getCellContent};
+    getCellContent();
+    return {getActiveP, playRound};
 }
 
 function Cell() {
@@ -45,15 +63,12 @@ function Cell() {
     return { setValue, getValue};
 }
 
-const c = Cell();
+/* const c = Cell();       CELL TESTS
 c.setValue("X");
 console.log(c.getValue());
 
 const b = Cell();
 b.setValue("O");
-console.log(b.getValue());
+console.log(b.getValue()); */
 
 const game = Game();
-game.getCellContent();
-game.switchTurn();
-game.switchTurn();
