@@ -36,7 +36,7 @@ function Game() {
             return;
         }
 
-        if(board[index] === "-"){
+        if(board[index].getValue() === "-"){
             board[index].setValue(activeP.token);
             switchTurn();
 
@@ -44,6 +44,7 @@ function Game() {
             getCellContent();
         }else{
             console.log("Taken.");
+            console.log("Still " + activeP.name + "'s turn.");
             return;
         }
     }
