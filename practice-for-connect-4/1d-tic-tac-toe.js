@@ -3,31 +3,28 @@ function Game() {
 
     const createBoard = (cells) => {
             for(let i = 0; i < cells; i++){
-                board.push(cell);
+                board.push(new Cell);
             }
-        return board;
+    }
+
+    const Players = [{ name: P1, token: "X"},
+                    { name: P2,token: "O"}]
+
+    let activeP = Players[0];
+    
+    const switchTurn = () => {
+        activeP = activeP === Players[0]? Players[1] : Players[0];
     }
 
     const getTurn = () => {
-        const Players = [
-            {
-                name: P1,
-                token: "X"
-            },
-            {
-                name: P2,
-                token: "O"
-            }
-        ]
-
-        let activeP = Players[0];
-        
-        const switchTurn = () => {
-            activeP = activeP === Players[0]? Players[1] : Players[0];
-        }
+        console.log(activeP + "'s turn.");
     }
 
-    return {createBoard, getTurn};
+    const getCellContent = () => {
+        
+    }
+
+    return {createBoard, getTurn, switchTurn, getCellContent};
 }
 
 function Cell() {
