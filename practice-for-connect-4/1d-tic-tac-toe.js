@@ -8,25 +8,32 @@ function Game() {
             }
     }
 
-    /* const Players = [{ name: P1, token: "X"},
-                    { name: P2,token: "O"}] 
+    const Players = [{ name: "P1", token: "X"},
+                    { name: "P2",token: "O"}] 
 
-    let activeP = Players[0]; */
+    let activeP = Players[0]; 
     
     const switchTurn = () => {
         activeP = activeP === Players[0]? Players[1] : Players[0];
+        console.log(activeP.name + "'s turn.");
     }
 
-    const getTurn = () => {
-        console.log(activeP + "'s turn.");
+    const getActiveP = () => {
+        console.log(activeP.name + "'s turn.");
+        return (activeP.name);
     }
 
     const getCellContent = () => {
+        let arr = [];
         for(let elt of board){
-            console.log(elt.getValue());}
+            arr.push(elt.getValue());}
+        console.log(arr);
+        return arr;
     }
 
-    return {createBoard, getTurn, switchTurn, getCellContent};
+    createBoard();
+    getActiveP();
+    return {getActiveP, switchTurn, getCellContent};
 }
 
 function Cell() {
@@ -47,5 +54,6 @@ b.setValue("O");
 console.log(b.getValue());
 
 const game = Game();
-game.createBoard();
 game.getCellContent();
+game.switchTurn();
+game.switchTurn();
