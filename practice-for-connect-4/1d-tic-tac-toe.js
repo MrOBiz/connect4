@@ -12,11 +12,11 @@ function Game() {
         const Players = [
             {
                 name: P1,
-                token: "1"
+                token: "X"
             },
             {
                 name: P2,
-                token: "2"
+                token: "O"
             }
         ]
 
@@ -31,10 +31,21 @@ function Game() {
 }
 
 function Cell() {
-    let value = "0";
+    let value = "-";
 
-    const setValue = (player) => {value = player;};
-    const readValue = () => {value;};
+    const setValue = (player) => {value = player};
+    const getValue = () => value;
 
-    return { setValue, readValue};
+    return { setValue, getValue};
 }
+
+const c = new Cell;
+c.setValue("X");
+console.log(c.getValue());
+
+const b = new Cell;
+b.setValue("O");
+console.log(b.getValue());
+
+
+
