@@ -21,11 +21,20 @@ function Game() {
         ]
 
         let activeP = Players[0];
-
+        
         const switchTurn = () => {
             activeP = activeP === Players[0]? Players[1] : Players[0];
         }
     }
 
     return {createBoard, getTurn};
+}
+
+function Cell() {
+    let value = "0";
+
+    const setValue = (player) => {value = player;};
+    const readValue = () => {value;};
+
+    return { setValue, readValue};
 }
