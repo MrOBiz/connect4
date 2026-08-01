@@ -1,4 +1,6 @@
 function Game() {
+    let myBoard = GameBoard();
+
     const Players = [{ name: "P1", token: "X"},
                     { name: "P2",token: "O"}] 
 
@@ -14,13 +16,13 @@ function Game() {
         return (activeP.name);
     }
 
-    const playRound = () => {
+    const playRound = (ind) => {
         if(index < 0 || index > cells - 1){
             return;
         }
 
-        if(board[index].getValue() === "-"){
-            placeToken();
+        if(myBoard[ind].getValue() === "-"){
+            myBoard.placeToken(ind);
             switchTurn();
         }else{
             console.log("Taken.");
@@ -35,9 +37,9 @@ function Game() {
         }
     }
 
-    createBoard();
+    myBoard.createBoard();
     getActiveP();
-    getCellContent();
+    myBoard.getCellContent();
     return {getActiveP, playRound};
 }
 
@@ -64,9 +66,9 @@ function GameBoard(){
         getCellContent();
     }
 
-    createBoard();  //BUILD IN BODY
+    //createBoard();  BUILD IN BODY
 
-    return { getCellContent, placeToken };
+    return { createBoard, getCellContent, placeToken };
 }
 
 function Cell() {
