@@ -1,13 +1,4 @@
 function Game() {
-    const board = [];
-    const cells = 3;
-
-    const createBoard = () => {
-            for(let i = 0; i < cells; i++){
-                board.push(Cell());
-            }
-    }
-
     const Players = [{ name: "P1", token: "X"},
                     { name: "P2",token: "O"}] 
 
@@ -23,24 +14,14 @@ function Game() {
         return (activeP.name);
     }
 
-    const getCellContent = () => {
-        let arr = [];
-        for(let elt of board){
-            arr.push(elt.getValue());}
-        console.log(arr);
-        return arr;
-    }
-
-    const playRound = (index) => {
+    const playRound = () => {
         if(index < 0 || index > cells - 1){
             return;
         }
 
         if(board[index].getValue() === "-"){
-            board[index].setValue(activeP.token);
-
+            placeToken();
             switchTurn();
-            getCellContent();
         }else{
             console.log("Taken.");
             console.log("Still " + activeP.name + "'s turn.");
@@ -60,13 +41,41 @@ function Game() {
     return {getActiveP, playRound};
 }
 
+function GameBoard(){
+    const board = [];
+    const cells = 3;
+
+    const createBoard = () => {
+            for(let i = 0; i < cells; i++){
+                board.push(Cell());
+            }
+    }
+
+    const getCellContent = () => {
+        let arr = [];
+        for(let elt of board){
+            arr.push(elt.getValue());}
+        return arr;
+    }
+
+    function placeToken(index){ 
+        board[index].addToken(activeP.token);
+
+        getCellContent();
+    }
+
+    createBoard();  //BUILD IN BODY
+
+    return { getCellContent, placeToken };
+}
+
 function Cell() {
     let value = "-";
 
-    const setValue = (player) => value = player;
+    const addToken = (player) => value = player;
     const getValue = () => value;
 
-    return { setValue, getValue};
+    return {addToken, getValue};
 }
 
 /*const c = Cell();       CELL TESTS
