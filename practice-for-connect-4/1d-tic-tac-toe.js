@@ -38,14 +38,19 @@ function Game() {
 
         if(board[index].getValue() === "-"){
             board[index].setValue(activeP.token);
-            switchTurn();
 
-            getActiveP();
+            switchTurn();
             getCellContent();
         }else{
             console.log("Taken.");
             console.log("Still " + activeP.name + "'s turn.");
             return;
+        }
+    }
+
+    const checkWin = () => {
+        for(let let of board){
+
         }
     }
 
@@ -58,13 +63,13 @@ function Game() {
 function Cell() {
     let value = "-";
 
-    const setValue = (player) => {value = player};
+    const setValue = (player) => value = player;
     const getValue = () => value;
 
     return { setValue, getValue};
 }
 
-/* const c = Cell();       CELL TESTS
+/*const c = Cell();       CELL TESTS
 c.setValue("X");
 console.log(c.getValue());
 
