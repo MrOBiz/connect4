@@ -22,7 +22,7 @@ function Game() {
         }
 
         if(myBoard[ind].getValue() === "-"){
-            myBoard.placeToken(ind);
+            myBoard.placeToken(ind).addToken(activeP.name);
             switchTurn();
         }else{
             console.log("Taken.");
@@ -61,7 +61,7 @@ function GameBoard(){
     }
 
     function placeToken(index){ 
-        board[index].addToken(activeP.token);
+        board[index].addToken();
 
         getCellContent();
     }

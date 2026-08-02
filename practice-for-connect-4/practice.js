@@ -1,7 +1,7 @@
 //COUNTER FACTORY
 function Counter(start = 0){
     let count = start;
-    const increase = () => {count++;};
+    const increaseCount = () => {count++;};
     const getCount = () => count;
     return {increase, getCount};
 }
@@ -17,7 +17,7 @@ console.log(fromTen.getCount());
 /* console.log(count); doesn't work, it's private because of closure */
 
 //ROW OF 5 COUNTERS
-function CounterRow(){
+function CounterArray(){
     const row = new Array();
 
     const add = (start) => {row.push(Counter(start));};
@@ -26,7 +26,7 @@ function CounterRow(){
 }
 
 
-let rowOne = new CounterRow();
+let rowOne = new CounterArray();
 rowOne.add(13);
 rowOne.add(3);
 rowOne.add(7);
