@@ -21,7 +21,7 @@ function Game() {
             return;
         }
 
-        if(getCellContent()[ind].getValue() === "-"){
+        if(myBoard.getCellContent()[ind] === "-"){
             myBoard.placeToken(ind).addToken(activeP.name);
             switchTurn();
         }else{
