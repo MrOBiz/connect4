@@ -21,7 +21,7 @@ function Game() {
             return;
         }
 
-        if(myBoard[ind].getValue() === "-"){
+        if(getCellContent()[ind].getValue() === "-"){
             myBoard.placeToken(ind).addToken(activeP.name);
             switchTurn();
         }else{
@@ -60,13 +60,13 @@ function GameBoard(){
         return arr;
     }
 
-    function placeToken(index){ 
-        board[index].addToken();
+    function placeToken(index, player){ 
+        board[index].addToken(player);
 
         getCellContent();
     }
 
-    //createBoard();  BUILD IN BODY
+    createBoard();  //BUILD IN BODY
 
     return { createBoard, getCellContent, placeToken };
 }
@@ -81,11 +81,11 @@ function Cell() {
 }
 
 /*const c = Cell();       CELL TESTS
-c.setValue("X");
+c.addToken("X");
 console.log(c.getValue());
 
 const b = Cell();
-b.setValue("O");
+b.addToken("O");
 console.log(b.getValue()); */
 
 const game = Game();
