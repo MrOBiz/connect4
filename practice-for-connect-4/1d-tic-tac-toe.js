@@ -1,8 +1,8 @@
 function Game() {
     let myBoard = GameBoard();
+    let turnFlag = 0;
     let pOneCount = 0;
     let pTwoCount = 0;
-    let turnFlag = 0;
 
     const Players = [{ name: "P1", token: "X"},
                     { name: "P2",token: "O"}] 
@@ -17,7 +17,7 @@ function Game() {
         console.log(activeP.name + "'s turn.");
     }
 
-    const getActiveP = () => {
+    const getActivePToken = () => {
         return (activeP.token);
     }
 
@@ -27,18 +27,16 @@ function Game() {
             printActiveP();
             return;
         }else if(myBoard.getCellContent()[ind] === "-"){
-            myBoard.placeToken(ind, getActiveP());
+            myBoard.placeToken(ind, getActivePToken());
             console.log(myBoard.getCellContent());
             turnFlag += 1;
 
+            checkWin();
             if(turnFlag != 3){
-                checkWin();
                 switchTurn();
                 printActiveP();
-            }else{
-                checkWin()
             }
-            
+
         }else{
             console.log("Taken.");
             console.log("Still " + activeP.name + "'s turn.");
@@ -47,15 +45,16 @@ function Game() {
     }
 
     const checkWin = () => {
+        pOneCount = 0;
+        pTwoCount = 0;
 
         for(let elt of myBoard.getCellContent()){
-
-            if(elt === "-"){
-                return;
-            }else if(elt === "X"){
+            if(elt === "X"){
                 pOneCount += 1;
             }else if(elt === "O"){
                 pTwoCount += 1;
+            }else{
+                return;
             }
         }
 
@@ -63,6 +62,15 @@ function Game() {
     } 
 
     const printWinner = () => {
+        /* for(let i = 0; i < myBoard.getCellContent().length; i++){
+            if(myBoard.getCellContent()[i] === myBoard.getCellContent()[i + 1] &&
+               myBoard.getCellContent()[i] === myBoard.getCellContent()[i + 2] &&
+                myBoard.getCellContent()[i] != "-"){
+
+
+            }
+        } */
+        
         if(pOneCount === 3){
             console.log(Players[0].name + " WINS!");
             resetGame();
@@ -72,7 +80,7 @@ function Game() {
         }else if(pOneCount != 3 && pTwoCount != 3 && turnFlag === 3){
             console.log("IT'S A DRAW!");
             resetGame();
-        }
+        } 
     }
 
     const resetGame = () => {
@@ -84,7 +92,7 @@ function Game() {
     }
     
     printActiveP();
-    return {getActiveP, playRound }; 
+    return { getActivePToken, playRound }; 
 }
 
 function GameBoard(){
@@ -110,8 +118,6 @@ function GameBoard(){
 
     function placeToken(index, player){ 
         board[index].addToken(player);
-
-        getCellContent();
     }
 
     createBoard();  //BUILD IN BODY
