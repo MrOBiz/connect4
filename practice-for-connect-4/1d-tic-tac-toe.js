@@ -67,6 +67,9 @@ function Game() {
                myBoard.getCellContent()[i] === myBoard.getCellContent()[i + 2] &&
                 myBoard.getCellContent()[i] != "-"){
 
+                ADD P1 WIN CONDITION 
+                P2 WIN CONDITION
+                DRAW
 
             }
         } */
