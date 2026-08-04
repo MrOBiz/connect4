@@ -1,5 +1,7 @@
 function Game() {
     let myBoard = GameBoard();
+    let pOneCount = 0;
+    let pTwoCount = 0;
 
     const Players = [{ name: "P1", token: "X"},
                     { name: "P2",token: "O"}] 
@@ -17,7 +19,7 @@ function Game() {
     }
 
     const playRound = (ind) => {
-        if(ind < 0 || ind > getCellCount() - 1){
+        if(ind < 0 || ind > myBoard.getCellCount() - 1){
             return;
         }else if(myBoard.getCellContent()[ind] === "-"){
             myBoard.placeToken(ind, getActiveP());
@@ -32,16 +34,40 @@ function Game() {
     }
 
     const checkWin = () => {
+
         for(let elt of myBoard.getCellContent()){
+
             if(elt === "-"){
                 return;
+            }else if(elt === "X"){
+                pOneCount += 1;
+            }else if(elt === "O"){
+                pTwoCount += 1;
             }
         }
+
+        printWinner();
     } 
 
+    const printWinner = () => {
+        if(pOneCount === 3){
+            console.log(Players[0].name + " WINS!");
+            resetGame();
+        }else if(pTwoCount === 3){
+            console.log(Players[1].name + " WINS!");
+            resetGame();
+        }
+    }
+
+    const resetGame = () => {
+        pOneCount = 0;
+        pTwoCount = 0;
+        activeP = Players[0];
+        myBoard = GameBoard();
+    }
     
     getActiveP();
-    return {getActiveP, playRound};
+    return {getActiveP, playRound, switchTurn}; //switchTurn just for testing
 }
 
 function GameBoard(){
@@ -98,9 +124,12 @@ console.log(b.getValue());
 b.addToken("O");
 console.log(b.getValue()); */
 
+                              
+/* game.playRound(1);   //BOARD CHECK
+game.switchTurn();
+game.playRound(2);
+game.switchTurn();
+game.playRound(0);
+game.switchTurn(); */
 
-/* const newBoard = GameBoard();         BOARD CHECK             
-console.log(newBoard.getCellContent()); 
-newBoard.placeToken(1, game.getActiveP());
-console.log(newBoard.getCellContent());  */
 
