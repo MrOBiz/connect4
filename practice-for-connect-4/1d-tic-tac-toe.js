@@ -13,16 +13,16 @@ function Game() {
 
     const getActiveP = () => {
         console.log(activeP.name + "'s turn.");
-        return (activeP.name);
+        return (activeP.token);
     }
 
     const playRound = (ind) => {
-        if(index < 0 || index > cells - 1){
+        if(ind < 0 || ind > getCellCount() - 1){
             return;
-        }
-
-        if(myBoard.getCellContent()[ind] === "-"){
-            myBoard.placeToken(ind).addToken(activeP.name);
+        }else if(myBoard.getCellContent()[ind] === "-"){
+            myBoard.placeToken(ind, getActiveP());
+            console.log(myBoard.getCellContent());
+            checkWin();
             switchTurn();
         }else{
             console.log("Taken.");
@@ -31,21 +31,26 @@ function Game() {
         }
     }
 
-    /* const checkWin = () => {
-        for(let let of board){
-
+    const checkWin = () => {
+        for(let elt of myBoard.getCellContent()){
+            if(elt === "-"){
+                return;
+            }
         }
-    } */
+    } 
 
-    //myBoard.createBoard();
+    
     getActiveP();
-    //myBoard.getCellContent();
     return {getActiveP, playRound};
 }
 
 function GameBoard(){
     const board = [];
     const cells = 3;
+
+    const getCellCount = () => {
+        return cells;
+    }
 
     const createBoard = () => {
             for(let i = 0; i < cells; i++){
@@ -68,7 +73,7 @@ function GameBoard(){
 
     createBoard();  //BUILD IN BODY
 
-    return { getCellContent, placeToken };
+    return { getCellCount, getCellContent, placeToken };
 }
 
 function Cell() {
@@ -80,7 +85,10 @@ function Cell() {
     return {addToken, getValue};
 }
 
-/* const c = Cell(); 
+
+const game = Game();
+
+/* const c = Cell();             CELL CHECK 
 console.log(c.getValue());      
 c.addToken("X");
 console.log(c.getValue());
@@ -90,5 +98,9 @@ console.log(b.getValue());
 b.addToken("O");
 console.log(b.getValue()); */
 
-const game = Game();
+
+/* const newBoard = GameBoard();         BOARD CHECK             
+console.log(newBoard.getCellContent()); 
+newBoard.placeToken(1, game.getActiveP());
+console.log(newBoard.getCellContent());  */
 
