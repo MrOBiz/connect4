@@ -11,23 +11,34 @@ function Game() {
     
     const switchTurn = () => {
         activeP = activeP === Players[0]? Players[1] : Players[0];
+    }
+
+    const printActiveP = () => {
         console.log(activeP.name + "'s turn.");
     }
 
     const getActiveP = () => {
-        console.log(activeP.name + "'s turn.");
         return (activeP.token);
     }
 
     const playRound = (ind) => {
         if(ind < 0 || ind > myBoard.getCellCount() - 1){
+            console.log("Invalid move.");
+            printActiveP();
             return;
         }else if(myBoard.getCellContent()[ind] === "-"){
             myBoard.placeToken(ind, getActiveP());
             console.log(myBoard.getCellContent());
             turnFlag += 1;
-            checkWin();
-            switchTurn();
+
+            if(turnFlag != 3){
+                checkWin();
+                switchTurn();
+                printActiveP();
+            }else{
+                checkWin()
+            }
+            
         }else{
             console.log("Taken.");
             console.log("Still " + activeP.name + "'s turn.");
@@ -72,7 +83,7 @@ function Game() {
         myBoard = GameBoard();
     }
     
-    getActiveP();
+    printActiveP();
     return {getActiveP, playRound }; 
 }
 
