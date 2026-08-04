@@ -31,15 +31,15 @@ function Game() {
         }
     }
 
-    const checkWin = () => {
+    /* const checkWin = () => {
         for(let let of board){
 
         }
-    }
+    } */
 
-    myBoard.createBoard();
+    //myBoard.createBoard();
     getActiveP();
-    myBoard.getCellContent();
+    //myBoard.getCellContent();
     return {getActiveP, playRound};
 }
 
@@ -68,7 +68,7 @@ function GameBoard(){
 
     createBoard();  //BUILD IN BODY
 
-    return { createBoard, getCellContent, placeToken };
+    return { getCellContent, placeToken };
 }
 
 function Cell() {
@@ -80,11 +80,13 @@ function Cell() {
     return {addToken, getValue};
 }
 
-/*const c = Cell();       CELL TESTS
+/* const c = Cell(); 
+console.log(c.getValue());      
 c.addToken("X");
 console.log(c.getValue());
 
 const b = Cell();
+console.log(b.getValue());
 b.addToken("O");
 console.log(b.getValue()); */
 
