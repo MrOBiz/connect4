@@ -2,6 +2,7 @@ function Game() {
     let myBoard = GameBoard();
     let pOneCount = 0;
     let pTwoCount = 0;
+    let turnFlag = 0;
 
     const Players = [{ name: "P1", token: "X"},
                     { name: "P2",token: "O"}] 
@@ -24,6 +25,7 @@ function Game() {
         }else if(myBoard.getCellContent()[ind] === "-"){
             myBoard.placeToken(ind, getActiveP());
             console.log(myBoard.getCellContent());
+            turnFlag += 1;
             checkWin();
             switchTurn();
         }else{
@@ -56,18 +58,22 @@ function Game() {
         }else if(pTwoCount === 3){
             console.log(Players[1].name + " WINS!");
             resetGame();
+        }else if(pOneCount != 3 && pTwoCount != 3 && turnFlag === 3){
+            console.log("IT'S A DRAW!");
+            resetGame();
         }
     }
 
     const resetGame = () => {
         pOneCount = 0;
         pTwoCount = 0;
+        turnFlag = 0;
         activeP = Players[0];
         myBoard = GameBoard();
     }
     
     getActiveP();
-    return {getActiveP, playRound, switchTurn}; //switchTurn just for testing
+    return {getActiveP, playRound }; 
 }
 
 function GameBoard(){
@@ -125,11 +131,9 @@ b.addToken("O");
 console.log(b.getValue()); */
 
                               
-/* game.playRound(1);   //BOARD CHECK
-game.switchTurn();
+game.playRound(1);   //BOARD CHECK
 game.playRound(2);
-game.switchTurn();
 game.playRound(0);
-game.switchTurn(); */
+ 
 
 
